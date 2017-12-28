@@ -8,22 +8,21 @@ cur_count = 0
 nucl = None
 
 for line in sys.stdin:
-    line = line
-    params = line.split('\t')
-    antiNucleus = int(params[0])
-    Pt = float(params[1])
-    nucl = antiNucleus
-    if cur_nucl is None:
-    	cur_sum = Pt
-        cur_count = 1
-        cur_nucl = nucl
-    elif cur_nucl != nucl:
-    	mean = cur_sum / cur_count
-        print('{}\t{}\t{}'.format(str(cur_nucl), str(mean), 'mean'))
-    elif cur_nucl == nucl:
-        cur_count += 1
-        cur_sum += Pt
+	fields = line.split('\t')
+	antiNucleus = int(fields[0])
+	Pt = float(fields[1])
+	if cur_nucl == None:
+		cur_sum = Pt
+		cur_count = 1
+		cur_nucl = antiNucleus
+	elif cur_nucl == antiNucleus:
+		cur_sum += Pt
+		cur_count += 1
+	elif cur_nucl != antiNucleus:
+		print('%s\t%s' % (cur_nucl, cur_sum / cur_count))
+		cur_sum = Pt
+		cur_count = 1
+		cur_nucl = antiNucleus
 
 if cur_nucl == nucl:
-    mean = cur_sum / cur_count
-    print ('%s\t%s\t%s' % (str(cur_nucl), str(mean), 'mean'))
+    print('%s\t%s' % (cur_nucl, cur_sum / cur_count))

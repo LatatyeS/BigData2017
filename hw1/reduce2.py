@@ -5,25 +5,24 @@ import sys
 cur_nucl = None
 cur_sum = 0.0
 cur_count = 0
-elem = None
 
 for line in sys.stdin:
-    r = line.split('\t')
-    antiNucleus = int(r[0])
-    prodTime = double(r[1])
-    elem = antiNucleus
+	fields = line.split('\t')
+	antiNucleus = int(fields[0])
+	prodTime = float(fields[1])
 
-    if cur_nucl is None:
-    	cur_sum = prodTime
-        cur_count = 1
-        cur_nucl = elem
-    elif cur_nucl != elem:
-    	mean = cur_sum / cur_count
-        print('{}\t{}\t{}'.format(str(cur_nucl), str(mean), 'mean'))
-    elif cur_nucl == elem:
-        cur_count += 1
-        cur_sum += prodTime
-            
-if cur_nucl == elem:
-    mean = cur_sum / cur_count
-    print('{}\t{}\t{}'.format(str(cur_nucl), str(mean), 'mean'))
+	if cur_nucl == None:
+		cur_sum = prodTime
+		cur_count = 1
+		cur_nucl = antiNucleus
+	elif cur_nucl == elem:
+		cur_sum += prodTime
+		cur_count += 1
+	elif cur_nucl != elem:
+		print('%s\t%s' % (str(cur_nucl), cur_sum / cur_count))
+		cur_sum = prodTime
+		cur_count = 1
+		cur_nucl = antiNucleus
+
+if cur_nucl == antiNucleus:
+	print('%s\t%s' % (str(cur_nucl), cur_sum / cur_count))

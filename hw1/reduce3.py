@@ -3,18 +3,16 @@
 import sys
 
 lines = []
-for line in sys.stdin:
-    lines.append(line.strip())
-
 means = {}
-for line in lines:
-    fields = line.split('\t')
-    if len(fields) == 4 and fields[3] == 'mean':
-		means[int(fields[1])] = Decimal(fields[2])
+for line in sys.stdin:
+	fields = line.split('\t')
+	if len(fields) == 2:
+		key = int(fields[0])
+		mean = float(fields[1])
+		means[key] = mean
+	else:
+		lines.append(line)
 
-
 for line in lines:
-    fields = line.split('\t')
-    if len(fields) == 4 and fields[3] == 'mean':
-        continue  
-    print('{}\t{}'.format('\t'.join(fields[1:]),means[int(fields[1])]))
+    fields = line.split('\t') 
+    print('%s\t%s' % (line, means[int(fields[0])]))

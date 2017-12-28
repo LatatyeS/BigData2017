@@ -3,7 +3,7 @@
 import sys
 
 for line in sys.stdin:
-    row = line.split()
-    antiNucleus = int(row[0])
-    Pt = float(row[3])
+    fields = line.split()
+    antiNucleus = int(fields[0])
+    Pt = float(fields[3])
     print('%s\t%s' % (antiNucleus, Pt))

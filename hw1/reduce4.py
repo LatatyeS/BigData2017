@@ -3,7 +3,8 @@
 import sys
 
 for line in sys.stdin:
-    line = line
     fields = line.split('\t')
-    if double(fields[2]) > double(fields[4]):
+    prodTime = float(fields[2])
+    mean_prodTime = float(fields[4])
+    if prodTime > mean_prodTime:
          print(line)

@@ -3,7 +3,7 @@
 import sys
 
 for line in sys.stdin:
-    r = line.split()
-    antiNucleus = int(r[0])
-    prodTime = double(r[2])
-    print(‘{}\t{}’.format(antiNucleus, prodTime))
+    fields = line.split()
+    antiNucleus = int(fields[0])
+    prodTime = float(fields[2])
+    print('%s\t%s' % (antiNucleus, prodTime))
